@@ -1,17 +1,12 @@
-import { Controller, BadRequestException, NotFoundException, Body, Dependencies, Post, Get, Param, Req, UseGuards } from '@nestjs/common';
+import { Controller, BadRequestException, NotFoundException, Body, Post, Get, Param, Req, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { AuthGuard } from '../auth/auth.guard';
 import type { IAuthInfoRequest } from '../auth/auth.guard';
-import { register } from 'module';
 
 
 @Controller('users')
-@Dependencies(UsersService)
 export class UsersController {
-    usersService: UsersService;
-    constructor(usersService: UsersService) {
-        this.usersService = usersService;
-    }
+    constructor(private readonly usersService: UsersService) {}
 
     @UseGuards(AuthGuard)
     @Get('me')
@@ -22,8 +17,8 @@ export class UsersController {
             userId: user.userId,
             username: user.username,
             role: user.role,
-            dateCreation: user.dateCreation,
-            dateDerniereConnexion: user.dateDerniereConnexion,
+            CreationDate: user.CreationDate,
+            LastConnectionDate: user.LastConnectionDate,
         };
     }
 
@@ -41,8 +36,8 @@ export class UsersController {
             userId: user.userId,
             username: user.username,
             role: user.role,
-            dateCreation: user.dateCreation,
-            dateDerniereConnexion: user.dateDerniereConnexion,
+            CreationDate: user.CreationDate,
+            LastConnectionDate: user.LastConnectionDate,
         };
     }
 

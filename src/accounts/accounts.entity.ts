@@ -5,7 +5,7 @@ export class Account {
   @PrimaryGeneratedColumn()
   accountId: number;
 
-  @Column()
+  @Column({ unique: false })
   name: string;
 
   @Column()

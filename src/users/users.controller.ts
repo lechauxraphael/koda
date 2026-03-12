@@ -8,6 +8,16 @@ import type { IAuthInfoRequest } from '../auth/auth.guard';
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
+    @Post('register')
+    async register(@Body() user: { username: string; password: string; mail: string }) {
+        return this.usersService.create(user);
+    }
+
+    @Get('allUsers')
+    findAll() {
+        return this.usersService.findAll();
+    }
+
     @UseGuards(AuthGuard)
     @Get('me')
     async getProfile(@Req() req: IAuthInfoRequest) {
@@ -22,12 +32,6 @@ export class UsersController {
         };
     }
 
-    
-    @Post('register')
-    async register(@Body() user: { username: string; password: string; mail: string }) {
-        return this.usersService.create(user);
-    }
-
     @Get(':userId')
     async getUser(@Param('userId') userId: number) {
         const user = await this.usersService.findOnePlayer(Number(userId));
@@ -39,11 +43,5 @@ export class UsersController {
             CreationDate: user.CreationDate,
             LastConnectionDate: user.LastConnectionDate,
         };
-    }
-
-    @UseGuards(AuthGuard)
-    @Get()
-    findAll() {
-        return this.usersService.findAll();
     }
 }

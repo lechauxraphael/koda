@@ -46,7 +46,19 @@ export class AuthService {
     const isValid = await bcrypt.compare(password, user.password);
     if (!isValid) throw new UnauthorizedException('Invalid password');
 
-    const payload = { sub: user.userId, mail: user.mail };
-    return { access_token: await this.jwtService.signAsync(payload) };
+    const payload = { 
+      sub: user.userId, 
+      username: user.username, 
+      mail: user.mail, 
+      role: user.role 
+    };
+    return {
+      access_token: await this.jwtService.signAsync(payload),
+    };
+  }
+  
+
+  async deleteUser(userId: number) {
+    return await this.usersService.delete(userId);
   }
 }

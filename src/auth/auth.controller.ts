@@ -1,4 +1,4 @@
-import {Body,  Controller,  Get,  HttpCode,  HttpStatus,  Post,  Request,  UseGuards} from '@nestjs/common';
+import {Body,  Controller,  Get,  HttpCode,  HttpStatus,  Post,  Request,  UnauthorizedException,  UseGuards} from '@nestjs/common';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { Public } from './public.decorator';
@@ -12,6 +12,14 @@ export class AuthController {
   @Post('register')
   register(@Body() body: { username: string; password: string; mail: string }) {
     return this.authService.register(body.username, body.password, body.mail);
+  }
+
+  @UseGuards(AuthGuard)
+  @HttpCode(HttpStatus.OK)
+  @Post('delete')
+  deleteUser(@Request() req: any) {
+    const userId = req.user.sub;
+    return this.authService.deleteUser(userId);
   }
 
   @Public()

@@ -1,9 +1,10 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
+import { Groups } from 'src/groups/groups.entity';
 
 @Entity()
-export class User {
+export class Users {
   @PrimaryGeneratedColumn()
-  userId: number;
+  id: number;
 
   @Column({ unique: true })
   username: string;
@@ -23,4 +24,7 @@ export class User {
   //Cela servira pour le système de streak
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   LastConnectionDate: Date; 
+
+  @ManyToMany(() => Groups, (group) => group.users)
+  groups: Groups[];
 }

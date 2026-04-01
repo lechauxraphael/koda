@@ -6,10 +6,12 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { AuthController } from './auth/auth.controller';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { User } from './users/user.entity';
-import { Account } from './accounts/accounts.entity';
-import { AccountsController } from './accounts/accounts.controller';
-import { AccountsModule } from './accounts/accounts.module';
+import { Users } from './users/user.entity';
+import { Groups } from 'src/groups/groups.entity';
+import { GroupsController } from './groups/groups.controller';
+import { GroupsModule } from './groups/groups.module';
+
+
 
 @Module({
   imports: [
@@ -25,12 +27,12 @@ import { AccountsModule } from './accounts/accounts.module';
         username: config.get<string>('DB_USERNAME'),
         password: config.get<string>('DB_PASSWORD'),
         database: config.get<string>('DB_DATABASE'),
-        entities: [User, Account],
+        entities: [Users, Groups],
         synchronize: true, // Only for development!
       }),
     }),
-    AuthModule, UsersModule, AccountsModule],
-  controllers: [AppController, AuthController, AccountsController],
+    AuthModule, UsersModule, GroupsModule],
+  controllers: [AppController, AuthController, GroupsController],
   providers: [AppService],
 })
 export class AppModule {}

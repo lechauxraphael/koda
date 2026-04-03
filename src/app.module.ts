@@ -10,6 +10,7 @@ import { Users } from './users/user.entity';
 import { Groups } from 'src/groups/groups.entity';
 import { GroupsController } from './groups/groups.controller';
 import { GroupsModule } from './groups/groups.module';
+import { PaymentModule } from './payment/payment.module';
 
 
 
@@ -31,7 +32,7 @@ import { GroupsModule } from './groups/groups.module';
         synchronize: true, // Only for development!
       }),
     }),
-    AuthModule, UsersModule, GroupsModule],
+    AuthModule, UsersModule, GroupsModule, PaymentModule,],
   controllers: [AppController, AuthController, GroupsController],
   providers: [AppService],
 })

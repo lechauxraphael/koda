@@ -1,28 +1,32 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 import { Users } from '../users/user.entity';
+import { Chat } from 'src/chat/chat.entity';
 
 @Entity()
 export class Groups {
   @PrimaryGeneratedColumn()
-  id: number;
+  id!: number;
 
   @Column({ unique: false })
-  name: string;
+  name!: string;
 
   @Column()
-  creator: string;
+  creator!: string;
 
   @Column({ default: 4 })
-  maxGroupSize: number;
+  maxGroupSize!: number;
 
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
-  dateCreation: Date;
+  dateCreation!: Date;
 
   @ManyToMany(() => Users, (user) => user.groups)
   @JoinTable({
     name: 'groups_users',
-    joinColumn: { name: 'id_groups', referencedColumnName: 'id' }, 
-    inverseJoinColumn: { name: 'id_users', referencedColumnName: 'id' } 
+    joinColumn: { name: 'groupId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'userId', referencedColumnName: 'id' }
   })
-  users: Users[];
+  users!: Users[];
+
+  @OneToMany(() => Chat, (chat) => chat.group)
+  chats!: Chat[];
  }

@@ -8,6 +8,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { Users } from './users/user.entity';
 import { Groups } from 'src/groups/groups.entity';
+import { Chat } from './chat/chat.entity';
 import { GroupsController } from './groups/groups.controller';
 import { GroupsModule } from './groups/groups.module';
 
@@ -27,7 +28,7 @@ import { GroupsModule } from './groups/groups.module';
         username: config.get<string>('DB_USERNAME'),
         password: config.get<string>('DB_PASSWORD'),
         database: config.get<string>('DB_DATABASE'),
-        entities: [Users, Groups],
+        entities: [Users, Groups, Chat],
         synchronize: true, // Only for development!
       }),
     }),

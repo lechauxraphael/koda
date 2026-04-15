@@ -20,6 +20,10 @@ import { InfoSheet } from './info_sheet/infoSheet.entity';
 import { Mascot } from './mascot/mascot.entity';
 import { Rewards } from './rewards/rewards.entity';
 import { Partners } from './partners/partners.entity';
+import { TasksModule } from './tasks/tasks.module';
+import { TasksController } from './tasks/tasks.controller';
+import { UsersController } from './users/users.controller';
+
 
 @Module({
   imports: [
@@ -40,8 +44,8 @@ import { Partners } from './partners/partners.entity';
         synchronize: true, // Only for development!
       }),
     }),
-    AuthModule, UsersModule, GroupsModule],
-  controllers: [AppController, AuthController, GroupsController],
+    AuthModule, UsersModule, GroupsModule, TasksModule],
+  controllers: [AppController, AuthController, UsersController, GroupsController, TasksController],
   providers: [AppService],
 })
 export class AppModule {}

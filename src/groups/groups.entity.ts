@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToMany, JoinTable, OneToMany } from 'typeorm';
-import { Users } from '../users/user.entity';
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 import { Chat } from 'src/chat/chat.entity';
+import { Tasks } from 'src/tasks/tasks.entity';
+import { GroupUser } from 'src/group-user/group-user.entity';
 
 @Entity()
 export class Groups {
@@ -19,14 +20,13 @@ export class Groups {
   @Column({ default: () => 'CURRENT_TIMESTAMP' })
   dateCreation!: Date;
 
-  @ManyToMany(() => Users, (user) => user.groups)
-  @JoinTable({
-    name: 'groups_users',
-    joinColumn: { name: 'groupId', referencedColumnName: 'id' },
-    inverseJoinColumn: { name: 'userId', referencedColumnName: 'id' }
-  })
-  users!: Users[];
+  @OneToMany(() => GroupUser, (groupUser) => groupUser.group)
+  groupUsers!: GroupUser[];
 
   @OneToMany(() => Chat, (chat) => chat.group)
   chats!: Chat[];
- }
+
+ @OneToMany(() => Tasks, (tasks) => tasks.groupId, { nullable: false })
+  tasks!: Tasks[];
+
+}

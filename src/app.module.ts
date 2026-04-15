@@ -12,8 +12,14 @@ import { Chat } from './chat/chat.entity';
 import { GroupsController } from './groups/groups.controller';
 import { GroupsModule } from './groups/groups.module';
 import { Subscription } from './subscription/subscription.entity';
-
-
+import { SubscriptionType } from './subscriptionType/subscriptionType.entity';
+import { GroupUser } from './group-user/group-user.entity';
+import { Tasks } from './tasks/tasks.entity';
+import { UsersTasks } from './users-tasks/users-tasks.entity';
+import { InfoSheet } from './info_sheet/infoSheet.entity';
+import { Mascot } from './mascot/mascot.entity';
+import { Rewards } from './rewards/rewards.entity';
+import { Partners } from './partners/partners.entity';
 
 @Module({
   imports: [
@@ -29,7 +35,8 @@ import { Subscription } from './subscription/subscription.entity';
         username: config.get<string>('DB_USERNAME'),
         password: config.get<string>('DB_PASSWORD'),
         database: config.get<string>('DB_DATABASE'),
-        entities: [Users, Groups, Chat, Subscription],
+        entities: [Users, Groups, GroupUser, Chat, Subscription, SubscriptionType, 
+                  Tasks, UsersTasks, InfoSheet, Mascot, Rewards, Partners],
         synchronize: true, // Only for development!
       }),
     }),

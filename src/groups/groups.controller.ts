@@ -2,7 +2,6 @@ import { Controller, BadRequestException, NotFoundException, ForbiddenException,
 import { GroupsService } from './groups.service';
 import { AuthGuard } from '../auth/auth.guard';
 import type { IAuthInfoRequest } from '../auth/auth.guard';
-import { Groups } from './groups.entity';
 
 @Controller('groups')
 export class GroupsController {
